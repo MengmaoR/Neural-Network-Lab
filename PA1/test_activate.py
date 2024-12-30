@@ -1,0 +1,58 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import train
+import matplotlib.pyplot as plt
+
+args = train.args
+train.total_epoch = 10
+args['dataset'] = 'mnist'
+
+# 经典 LeNet-5，使用 relu
+train.args = args
+train.main()
+relu_loss, relu_conv = train.loss_log, train.acc_log
+train.loss_log, train.acc_log = [], []
+
+# 使用 gelu
+args['activation'] = 'gelu'
+train.args = args
+train.main()
+gelu_loss, gelu_acc = train.loss_log, train.acc_log
+train.loss_log, train.acc_log = [], []
+
+# 使用 elu
+args['activation'] = 'elu'
+train.args = args
+train.main()
+elu_loss, elu_acc = train.loss_log, train.acc_log
+train.loss_log, train.acc_log = [], []
+
+# 使用 tanh
+args['activation'] = 'tanh'
+train.args = args
+train.main()
+tanh_loss, tanh_acc = train.loss_log, train.acc_log
+
+# Plot loss_log
+plt.plot(relu_loss, "o", color='blue', alpha=0.5, label='ReLU')
+plt.plot(gelu_loss, "o", color='red', alpha=0.5, label='GELU')
+plt.plot(elu_loss, "o", color='orange', alpha=0.5, label='ELU')
+plt.plot(tanh_loss, "o", color='green', alpha=0.5, label='Tanh')
+plt.xlabel('Batches')
+plt.ylabel('Loss')
+plt.title('Training Loss over Batches')
+plt.legend()
+plt.savefig(f'loss_activate_{args["dataset"]}_{args["model"]}.png', dpi = 600)
+plt.clf()
+
+# Plot acc_log
+plt.plot(relu_conv, label='ReLU')
+plt.plot(gelu_acc, label='GELU')
+plt.plot(elu_acc, label='ELU')
+plt.plot(tanh_acc, label='Tanh')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.title('Test Accuracy over Epochs')
+plt.legend()
+plt.savefig(f'acc_activate_{args["dataset"]}_{args["model"]}.png', dpi = 600)
