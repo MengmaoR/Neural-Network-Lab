@@ -1,8 +1,11 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import train
 import matplotlib.pyplot as plt
 
 args = train.args
-train.total_epoch = 10
+train.total_epoch = 30
 args['dataset'] = 'cifar10'
 
 # 经典 LeNet-5

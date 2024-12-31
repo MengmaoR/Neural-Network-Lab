@@ -16,8 +16,8 @@ args = {
     'dropout': False,           # True, False
     'add_conv': False,          # True, False
     'kernel_size': 5,           # 3, 5
-    'kernel_num1': 6,           # 6, 12, 24
-    'kernel_num2': 16           # 16, 32, 64
+    'kernel_num1': 12,          # 6, 12, 24
+    'kernel_num2': 32           # 16, 32, 64
 }
 total_epoch = 5
 
