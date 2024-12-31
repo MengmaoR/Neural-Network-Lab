@@ -5,8 +5,8 @@ import train
 import matplotlib.pyplot as plt
 
 args = train.args
-train.total_epoch = 10
-args['dataset'] = 'mnist'
+train.total_epoch = 30
+args['dataset'] = 'cifar10'
 
 # 经典 Lenet-5，无注意力机制
 train.args = args
@@ -43,7 +43,7 @@ plt.xlabel('Batches')
 plt.ylabel('Loss')
 plt.title('Training Loss over Batches')
 plt.legend()
-plt.savefig(f'loss_att_{args["dataset"]}_{args["model"]}.png', dpi = 600)
+plt.savefig(f'./PA3/img/loss_att_{args["dataset"]}_{args["model"]}.png', dpi = 600)
 plt.clf()
 
 # Plot acc_log
@@ -55,5 +55,5 @@ plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.title('Test Accuracy over Epochs')
 plt.legend()
-plt.savefig(f'acc_att_{args["dataset"]}_{args["model"]}.png', dpi = 600)
+plt.savefig(f'./PA3/img/acc_att_{args["dataset"]}_{args["model"]}.png', dpi = 600)
 plt.clf()

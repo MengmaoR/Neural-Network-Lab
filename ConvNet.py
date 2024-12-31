@@ -81,7 +81,7 @@ class model(nn.Module):
         
         # layers
         # convolutional 1
-        self.conv1 = nn.Conv2d(1, kernel_num1, kernel_size) # 6x28x28
+        self.conv1 = nn.Conv2d(3, kernel_num1, kernel_size) # 6x28x28
 
         # normalization 1
         if self.normalization == 'bn':
@@ -162,8 +162,8 @@ class model(nn.Module):
             return F.relu(input)
         elif self.activation == 'gelu':
             return F.gelu(input)
-        elif self.activation == 'elu':
-            return F.elu(input)
+        elif self.activation == 'sigmoid':
+            return F.sigmoid(input)
         elif self.activation == 'tanh':
             return F.tanh(input)
         else:

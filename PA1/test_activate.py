@@ -5,8 +5,8 @@ import train
 import matplotlib.pyplot as plt
 
 args = train.args
-train.total_epoch = 10
-args['dataset'] = 'mnist'
+train.total_epoch = 30
+args['dataset'] = 'cifar10'
 
 # 经典 LeNet-5，使用 relu
 train.args = args
@@ -21,11 +21,11 @@ train.main()
 gelu_loss, gelu_acc = train.loss_log, train.acc_log
 train.loss_log, train.acc_log = [], []
 
-# 使用 elu
-args['activation'] = 'elu'
+# 使用 sigmoid
+args['activation'] = 'sigmoid'
 train.args = args
 train.main()
-elu_loss, elu_acc = train.loss_log, train.acc_log
+sigmoid_loss, sigmoid_acc = train.loss_log, train.acc_log
 train.loss_log, train.acc_log = [], []
 
 # 使用 tanh
@@ -37,7 +37,7 @@ tanh_loss, tanh_acc = train.loss_log, train.acc_log
 # Plot loss_log
 plt.plot(relu_loss, "o", color='blue', alpha=0.5, label='ReLU')
 plt.plot(gelu_loss, "o", color='red', alpha=0.5, label='GELU')
-plt.plot(elu_loss, "o", color='orange', alpha=0.5, label='ELU')
+plt.plot(sigmoid_loss, "o", color='orange', alpha=0.5, label='Sigmod')
 plt.plot(tanh_loss, "o", color='green', alpha=0.5, label='Tanh')
 plt.xlabel('Batches')
 plt.ylabel('Loss')
@@ -49,7 +49,7 @@ plt.clf()
 # Plot acc_log
 plt.plot(relu_conv, label='ReLU')
 plt.plot(gelu_acc, label='GELU')
-plt.plot(elu_acc, label='ELU')
+plt.plot(sigmoid_acc, label='Sigmod')
 plt.plot(tanh_acc, label='Tanh')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
