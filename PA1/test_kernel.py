@@ -39,10 +39,10 @@ renum2_loss, renum2_acc = train.loss_log, train.acc_log
 train.loss_log, train.acc_log = [], []
 
 # Plot loss_log
-plt.plot(typical_loss, "o", color='blue', alpha=0.5, label='Typical')
-plt.plot(resize_loss, "o", color='red', alpha=0.5, label='Kernel Size 3')
-plt.plot(renum1_loss, "o", color='orange', alpha=0.5, label='Kernel Num 12, 32')
-plt.plot(renum2_loss, "o", color='green', alpha=0.5, label='Kernel Num 24, 64')
+plt.plot(typical_loss, "o", color='blue', alpha=0.2, label='Typical')
+plt.plot(resize_loss, "o", color='red', alpha=0.2, label='Kernel Size 3')
+plt.plot(renum1_loss, "o", color='orange', alpha=0.2, label='Kernel Num 12, 32')
+plt.plot(renum2_loss, "o", color='green', alpha=0.2, label='Kernel Num 24, 64')
 plt.xlabel('Batches')
 plt.ylabel('Loss')
 plt.title('Training Loss over Batches')
