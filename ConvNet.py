@@ -83,8 +83,8 @@ class model(nn.Module):
         # layers
         # convolutional 1
         if args['add_conv']:    # add conv
-            self.conv0 = nn.Conv2d(3, 6, 3) # 6x30x30
-            self.conv1 = nn.Conv2d(6, args['kernel_num1'], 3) # 6x28x28
+            self.conv0 = nn.Conv2d(3, 6, 3)                     # 6x30x30
+            self.conv1 = nn.Conv2d(6, args['kernel_num1'], 3)   # 6x28x28
         else:
             self.conv1 = nn.Conv2d(3, args['kernel_num1'], args['kernel_size']) # 6x28x28
 
