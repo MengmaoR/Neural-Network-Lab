@@ -66,56 +66,57 @@ class CBAMBlock(nn.Module): # CBAM 注意力模块
         return x * spatial_att
 
 class model(nn.Module):
-    def __init__(self, activation, normalization, dropout, attention, add_conv, kernel_size, kernel_num1, kernel_num2):
+    def __init__(self, args):
         super(model, self).__init__()
 
         # parameters
-        self.activation = activation
-        self.normalization = normalization
-        self.dropout = dropout
-        self.attention = attention
-        self.add_conv = add_conv
-        self.kernel_size = kernel_size
-        self.kernel_num1 = kernel_num1
-        self.kernel_num2 = kernel_num2
+        self.activation = args['activation']
+        self.normalization = args['normalization']
+        self.dropout = args['dropout']
+        self.attention = args['attention']
+        self.add_conv = args['add_conv']
+        self.kernel_size = args['kernel_size']
+        self.kernel_num1 = args['kernel_num1']
+        self.kernel_num2 = args['kernel_num2']
+        self.dataset = args['dataset']
         
         # layers
         # convolutional 1
-        self.conv1 = nn.Conv2d(3, kernel_num1, kernel_size) # 6x28x28
+        self.conv1 = nn.Conv2d(3, args['kernel_num1'], args['kernel_size']) # 6x28x28
 
         # normalization 1
         if self.normalization == 'bn':
-            self.norm1 = nn.BatchNorm2d(kernel_num1)
+            self.norm1 = nn.BatchNorm2d(args['kernel_num1'])
         elif self.normalization == 'gn':
-            self.norm1 = nn.GroupNorm(2, kernel_num1)
+            self.norm1 = nn.GroupNorm(2, args['kernel_num1'])
         
         # attention 1
         if self.attention == 'se':
-            self.att1 = SEBlock(kernel_num1)
+            self.att1 = SEBlock(args['kernel_num1'])
         elif self.attention == 'eca':
-            self.att1 = ECABlock(kernel_num1)
+            self.att1 = ECABlock(args['kernel_num1'])
         elif self.attention == 'cbam':
-            self.att1 = CBAMBlock(kernel_num1)
+            self.att1 = CBAMBlock(args['kernel_num1'])
 
         # pooling 1
         self.pool1 = nn.MaxPool2d(2, 2) # 6x14x14
 
         # convolutional 2
-        self.conv2 = nn.Conv2d(kernel_num1, kernel_num2, kernel_size) # 16x10x10
+        self.conv2 = nn.Conv2d(args['kernel_num1'], args['kernel_num2'], args['kernel_size']) # 16x10x10
 
         # normalization 2
         if self.normalization == 'bn':
-            self.norm2 = nn.BatchNorm2d(kernel_num2)
+            self.norm2 = nn.BatchNorm2d(args['kernel_num2'])
         elif self.normalization == 'gn':
-            self.norm2 = nn.GroupNorm(2, kernel_num2)
+            self.norm2 = nn.GroupNorm(2, args['kernel_num2'])
         
         # attention 2
         if self.attention == 'se':
-            self.att2 = SEBlock(kernel_num2)
+            self.att2 = SEBlock(args['kernel_num2'])
         elif self.attention == 'eca':
-            self.att2 = ECABlock(kernel_num2)
+            self.att2 = ECABlock(args['kernel_num2'])
         elif self.attention == 'cbam':
-            self.att2 = CBAMBlock(kernel_num2)
+            self.att2 = CBAMBlock(args['kernel_num2'])
         
         # pooling 2
         if self.kernel_size == 5:
@@ -124,38 +125,41 @@ class model(nn.Module):
             self.pool2 = nn.MaxPool2d(2, 2, padding=1) # 16x7x7
 
         # additional convolutional
-        if add_conv:
-            self.conv3 = nn.Conv2d(kernel_num2, 64, 3)  # 64x3x3
-            self.conv4 = nn.Conv2d(64, 120, 3)  # 120x1x1
+        if args['add_conv']:
+            self.conv3 = nn.Conv2d(args['kernel_num2'], 128, 3)  # 64x3x3
+            self.conv4 = nn.Conv2d(128, 240, 3)  # 240x1x1
         else:
             if self.kernel_size == 5:
-                self.conv3 = nn.Conv2d(kernel_num2, 120, 5)
+                self.conv3 = nn.Conv2d(args['kernel_num2'], 240, 5)
             elif self.kernel_size == 3:
-                self.conv3 = nn.Conv2d(kernel_num2, 120, 7)
+                self.conv3 = nn.Conv2d(args['kernel_num2'], 240, 7)
         
         if self.normalization == 'bn':
-            self.norm3 = nn.BatchNorm1d(120)
+            self.norm3 = nn.BatchNorm1d(240)
         elif self.normalization == 'ln':
-            self.norm3 = nn.LayerNorm(120)
+            self.norm3 = nn.LayerNorm(240)
         elif self.normalization == 'gn':
-            self.norm3 = nn.GroupNorm(1, 120)
+            self.norm3 = nn.GroupNorm(1, 240)
         
         # fully connected 1
-        self.fc1 = nn.Linear(120,84)
+        self.fc1 = nn.Linear(240,168)
 
         if self.normalization == 'bn':
-            self.norm4 = nn.BatchNorm1d(84)
+            self.norm4 = nn.BatchNorm1d(168)
         elif self.normalization == 'ln':
-            self.norm4 = nn.LayerNorm(84)
+            self.norm4 = nn.LayerNorm(168)
         elif self.normalization == 'gn':
-            self.norm4 = nn.GroupNorm(1, 84)
+            self.norm4 = nn.GroupNorm(1, 168)
 
         # dropout
         if self.dropout:
             self.dropout = nn.Dropout(0.5)
 
         # fully connected 2
-        self.fc2 = nn.Linear(84, 10)
+        if self.dataset == 'cifar10':
+            self.fc2 = nn.Linear(168, 10)
+        elif self.dataset == 'cifar100':
+            self.fc2 = nn.Linear(168, 100)
 
     def activation_layer(self, input):
         if self.activation == 'relu':

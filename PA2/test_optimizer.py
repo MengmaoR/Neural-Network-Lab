@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 args = train.args
 train.total_epoch = 30
-args['dataset'] = 'cifar10'
+args['dataset'] = 'cifar100'
 
 # Adam 优化器
 train.args = args

@@ -103,10 +103,7 @@ def test(model, test_loader):
 
 def main():
     if args['model'] == 'lenet5':
-        model = ConvNet.model(activation=args['activation'], normalization=args['normalization'], 
-                              attention=args['attention'], dropout=args['dropout'], 
-                              add_conv=args['add_conv'], kernel_size=args['kernel_size'], 
-                              kernel_num1=args['kernel_num1'], kernel_num2=args['kernel_num2']).to(device)
+        model = ConvNet.model(args).to(device)
     
     if args['optimizer'] == 'adam':
         opt = optim.Adam(model.parameters())
