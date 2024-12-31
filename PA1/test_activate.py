@@ -35,10 +35,10 @@ train.main()
 tanh_loss, tanh_acc = train.loss_log, train.acc_log
 
 # Plot loss_log
-plt.plot(relu_loss, "o", color='blue', alpha=0.5, label='ReLU')
-plt.plot(gelu_loss, "o", color='red', alpha=0.5, label='GELU')
-plt.plot(sigmoid_loss, "o", color='orange', alpha=0.5, label='Sigmod')
-plt.plot(tanh_loss, "o", color='green', alpha=0.5, label='Tanh')
+plt.plot(relu_loss, "o", color='blue', alpha=0.2, label='ReLU')
+plt.plot(gelu_loss, "o", color='red', alpha=0.2, label='GELU')
+plt.plot(sigmoid_loss, "o", color='orange', alpha=0.2, label='Sigmod')
+plt.plot(tanh_loss, "o", color='green', alpha=0.2, label='Tanh')
 plt.xlabel('Batches')
 plt.ylabel('Loss')
 plt.title('Training Loss over Batches')

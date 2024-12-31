@@ -7,8 +7,8 @@ import ConvNet
 
 args = {
     'model': 'lenet5',          # lenet5
-    'dataset': 'cifar100',       # CIFAR10, CIFAR100
-    'batch_size': 512,          # 64, 128, 256, 512
+    'dataset': 'cifar100',      # CIFAR10, CIFAR100
+    'batch_size': 128,          # 64, 128, 256
     'optimizer': 'adam',        # adam, sgd, adadelta, rmsprop
     'activation': 'relu',       # relu, gelu, sigmoid, tanh
     'normalization': 'none',    # none, bn, ln, gn
@@ -111,8 +111,6 @@ def main():
         opt = optim.SGD(model.parameters(), lr=0.01, momentum=0.9, weight_decay=5e-4)
     elif args['optimizer'] == 'adadelta':
         opt = optim.Adadelta(model.parameters())
-    elif args['optimizer'] == 'rmsprop':
-        opt = optim.RMSprop(model.parameters())
     
     train_loader, test_loader = data_preprocessing()
 

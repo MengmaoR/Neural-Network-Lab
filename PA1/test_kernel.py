@@ -2,8 +2,8 @@ import train
 import matplotlib.pyplot as plt
 
 args = train.args
-train.total_epoch = 10
-args['dataset'] = 'mnist'
+train.total_epoch = 30
+args['dataset'] = 'cifar10'
 
 # 经典 LeNet-5
 train.args = args

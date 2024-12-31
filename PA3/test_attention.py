@@ -35,10 +35,10 @@ train.main()
 cbam_loss, cbam_conv = train.loss_log, train.acc_log
 
 # Plot loss_log
-plt.plot(typical_loss, "o", color='blue', alpha=0.5, label='Typical')
-plt.plot(se_loss, "o", color='red', alpha=0.5, label='SE')
-plt.plot(eca_loss, "o", color='orange', alpha=0.5, label='ECA')
-plt.plot(cbam_loss, "o", color='green', alpha=0.5, label='CBAM')
+plt.plot(typical_loss, "o", color='blue', alpha=0.2, label='Typical')
+plt.plot(se_loss, "o", color='red', alpha=0.2, label='SE')
+plt.plot(eca_loss, "o", color='orange', alpha=0.2, label='ECA')
+plt.plot(cbam_loss, "o", color='green', alpha=0.2, label='CBAM')
 plt.xlabel('Batches')
 plt.ylabel('Loss')
 plt.title('Training Loss over Batches')

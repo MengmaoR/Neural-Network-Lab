@@ -82,7 +82,11 @@ class model(nn.Module):
         
         # layers
         # convolutional 1
-        self.conv1 = nn.Conv2d(3, args['kernel_num1'], args['kernel_size']) # 6x28x28
+        if args['add_conv']:    # add conv
+            self.conv0 = nn.Conv2d(3, 6, 3) # 6x30x30
+            self.conv1 = nn.Conv2d(6, args['kernel_num1'], 3) # 6x28x28
+        else:
+            self.conv1 = nn.Conv2d(3, args['kernel_num1'], args['kernel_size']) # 6x28x28
 
         # normalization 1
         if self.normalization == 'bn':
@@ -125,14 +129,10 @@ class model(nn.Module):
             self.pool2 = nn.MaxPool2d(2, 2, padding=1) # 16x7x7
 
         # additional convolutional
-        if args['add_conv']:
-            self.conv3 = nn.Conv2d(args['kernel_num2'], 64, 3)  # 64x3x3
-            self.conv4 = nn.Conv2d(64, 120, 3)  # 240x1x1
-        else:
-            if self.kernel_size == 5:
-                self.conv3 = nn.Conv2d(args['kernel_num2'], 120, 5)
-            elif self.kernel_size == 3:
-                self.conv3 = nn.Conv2d(args['kernel_num2'], 120, 7)
+        if self.kernel_size == 5:
+            self.conv3 = nn.Conv2d(args['kernel_num2'], 120, 5)
+        elif self.kernel_size == 3:
+            self.conv3 = nn.Conv2d(args['kernel_num2'], 120, 7)
         
         if self.normalization == 'bn':
             self.norm3 = nn.BatchNorm1d(120)

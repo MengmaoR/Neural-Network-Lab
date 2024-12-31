@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 args = train.args
 train.total_epoch = 10
-args['dataset'] = 'mnist'
+args['dataset'] = 'cifar10'
 
 # 经典 LeNet-5
 train.args = args
@@ -32,15 +32,15 @@ train.main()
 dropout_loss, dropout_acc = train.loss_log, train.acc_log
 
 # Plot loss_log
-plt.plot(typical_loss, "o", color='blue', alpha=0.5, label='Typical')
-plt.plot(add_conv_loss, "o", color='red', alpha=0.5, label='Add Conv')
-plt.plot(dropout_loss, "o", color='orange', alpha=0.5, label='Dropout')
-plt.plot(both_loss, "o", color='green', alpha=0.5, label='Both')
+plt.plot(typical_loss, "o", color='blue', alpha=0.2, label='Typical')
+plt.plot(add_conv_loss, "o", color='red', alpha=0.2, label='Add Conv')
+plt.plot(dropout_loss, "o", color='orange', alpha=0.2, label='Dropout')
+plt.plot(both_loss, "o", color='green', alpha=0.2, label='Both')
 plt.xlabel('Batches')
 plt.ylabel('Loss')
 plt.title('Training Loss over Batches')
 plt.legend()
-plt.savefig(f'loss_layers_{args["dataset"]}_{args["model"]}.png', dpi = 600)
+plt.savefig(f'./PA1/img/loss_layers_{args["dataset"]}_{args["model"]}.png', dpi = 600)
 plt.clf()
 
 # Plot acc_log
@@ -52,4 +52,4 @@ plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.title('Test Accuracy over Epochs')
 plt.legend()
-plt.savefig(f'acc_layers_{args["dataset"]}_{args["model"]}.png', dpi = 600)
+plt.savefig(f'./PA1/img/acc_layers_{args["dataset"]}_{args["model"]}.png', dpi = 600)
