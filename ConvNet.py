@@ -175,7 +175,12 @@ class model(nn.Module):
         
     def forward(self, x):
         in_size = x.size(0)
-        out = self.conv1(x)
+        if self.add_conv:
+            out = self.conv0(x)
+            out = self.activation_layer(out)
+            out = self.conv1(out)
+        else:
+            out = self.conv1(x)
         if self.normalization != 'none' and self.normalization != 'ln':
             out = self.norm1(out)
         out = self.activation_layer(out)
@@ -189,12 +194,7 @@ class model(nn.Module):
         if self.attention != 'none':
             out = self.att2(out)
         out = self.pool2(out)
-        if self.add_conv:
-            out = self.conv3(out)
-            out = self.activation_layer(out)
-            out = self.conv4(out)
-        else:
-            out = self.conv3(out)
+        out = self.conv3(out)
         out = out.view(in_size,-1)
         if self.normalization != 'none':
             out = self.norm3(out)
