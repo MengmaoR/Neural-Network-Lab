@@ -7,7 +7,7 @@ import ConvNet
 
 args = {
     'model': 'lenet5',          # lenet5
-    'dataset': 'cifar10',       # CIFAR10, CIFAR100
+    'dataset': 'cifar100',       # CIFAR10, CIFAR100
     'batch_size': 512,          # 64, 128, 256, 512
     'optimizer': 'adam',        # adam, sgd, adadelta, rmsprop
     'activation': 'relu',       # relu, gelu, sigmoid, tanh
@@ -19,7 +19,7 @@ args = {
     'kernel_num1': 6,           # 6, 12, 24
     'kernel_num2': 16           # 16, 32, 64
 }
-total_epoch = 30
+total_epoch = 5
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Runing on", torch.cuda.get_device_name(0) if torch.cuda.is_available() else "CPU")

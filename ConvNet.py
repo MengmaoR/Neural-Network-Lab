@@ -126,30 +126,30 @@ class model(nn.Module):
 
         # additional convolutional
         if args['add_conv']:
-            self.conv3 = nn.Conv2d(args['kernel_num2'], 128, 3)  # 64x3x3
-            self.conv4 = nn.Conv2d(128, 240, 3)  # 240x1x1
+            self.conv3 = nn.Conv2d(args['kernel_num2'], 64, 3)  # 64x3x3
+            self.conv4 = nn.Conv2d(64, 120, 3)  # 240x1x1
         else:
             if self.kernel_size == 5:
-                self.conv3 = nn.Conv2d(args['kernel_num2'], 240, 5)
+                self.conv3 = nn.Conv2d(args['kernel_num2'], 120, 5)
             elif self.kernel_size == 3:
-                self.conv3 = nn.Conv2d(args['kernel_num2'], 240, 7)
+                self.conv3 = nn.Conv2d(args['kernel_num2'], 120, 7)
         
         if self.normalization == 'bn':
-            self.norm3 = nn.BatchNorm1d(240)
+            self.norm3 = nn.BatchNorm1d(120)
         elif self.normalization == 'ln':
-            self.norm3 = nn.LayerNorm(240)
+            self.norm3 = nn.LayerNorm(120)
         elif self.normalization == 'gn':
-            self.norm3 = nn.GroupNorm(1, 240)
+            self.norm3 = nn.GroupNorm(1, 120)
         
         # fully connected 1
-        self.fc1 = nn.Linear(240,168)
+        self.fc1 = nn.Linear(120,84)
 
         if self.normalization == 'bn':
-            self.norm4 = nn.BatchNorm1d(168)
+            self.norm4 = nn.BatchNorm1d(84)
         elif self.normalization == 'ln':
-            self.norm4 = nn.LayerNorm(168)
+            self.norm4 = nn.LayerNorm(84)
         elif self.normalization == 'gn':
-            self.norm4 = nn.GroupNorm(1, 168)
+            self.norm4 = nn.GroupNorm(1, 84)
 
         # dropout
         if self.dropout:
@@ -157,9 +157,9 @@ class model(nn.Module):
 
         # fully connected 2
         if self.dataset == 'cifar10':
-            self.fc2 = nn.Linear(168, 10)
+            self.fc2 = nn.Linear(84, 10)
         elif self.dataset == 'cifar100':
-            self.fc2 = nn.Linear(168, 100)
+            self.fc2 = nn.Linear(84, 100)
 
     def activation_layer(self, input):
         if self.activation == 'relu':
