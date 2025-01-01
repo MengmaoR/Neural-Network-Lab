@@ -63,6 +63,7 @@ args['normalization'] = 'gn'
 train.args = args
 train.main()
 gn_128_loss, gn_128_conv = train.loss_log, train.acc_log
+train.loss_log, train.acc_log = [], []
 
 # 无归一化，batch_size = 256
 args['batch_size'] = 256

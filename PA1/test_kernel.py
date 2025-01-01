@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 args = train.args
 train.total_epoch = 30
-args['dataset'] = 'cifar10'
+args['dataset'] = 'cifar100'
 
 # 经典 LeNet-5
 train.args = args
@@ -47,7 +47,7 @@ plt.xlabel('Batches')
 plt.ylabel('Loss')
 plt.title('Training Loss over Batches')
 plt.legend()
-plt.savefig(f'loss_kernels_{args["dataset"]}_{args["model"]}.png', dpi = 600)
+plt.savefig(f'./PA1/img/loss_kernels_{args["dataset"]}_{args["model"]}.png', dpi = 600)
 plt.clf()
 
 # Plot acc_log
@@ -59,4 +59,4 @@ plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.title('Test Accuracy over Epochs')
 plt.legend()
-plt.savefig(f'acc_kernels_{args["dataset"]}_{args["model"]}.png', dpi = 600)
+plt.savefig(f'./PA1/img/acc_kernels_{args["dataset"]}_{args["model"]}.png', dpi = 600)
