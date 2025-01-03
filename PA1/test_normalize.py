@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 args = train.args
 train.total_epoch = 30
-args['dataset'] = 'cifar10'
+args['dataset'] = 'cifar100'
 
 # 经典 LeNet-5，无归一化，batch_size = 64
 args['batch_size'] = 64
@@ -128,10 +128,10 @@ plt.savefig(f'./PA1/img/loss_norm_{args["dataset"]}_{args["model"]}_256.png', dp
 plt.clf()
 
 # Plot acc_log
-plt.plot(none_64_conv, label='None 64')
-plt.plot(bn_64_conv, label='BN 64')
-plt.plot(ln_64_conv, label='LN 64')
-plt.plot(gn_64_conv, label='GN 64')
+plt.plot(none_64_conv, label='None 64', color='blue')
+plt.plot(bn_64_conv, label='BN 64', color='red')
+plt.plot(ln_64_conv, label='LN 64', color='orange')
+plt.plot(gn_64_conv, label='GN 64', color='green')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.title('Test Accuracy over Epochs')
@@ -139,10 +139,10 @@ plt.legend()
 plt.savefig(f'./PA1/img/acc_norm_{args["dataset"]}_{args["model"]}_64.png', dpi = 600)
 plt.clf()
 
-plt.plot(none_128_conv, label='None 128')
-plt.plot(bn_128_conv, label='BN 128')
-plt.plot(ln_128_conv, label='LN 128')
-plt.plot(gn_128_conv, label='GN 128')
+plt.plot(none_128_conv, label='None 128', color='blue')
+plt.plot(bn_128_conv, label='BN 128', color='red')
+plt.plot(ln_128_conv, label='LN 128', color='orange')
+plt.plot(gn_128_conv, label='GN 128', color='green')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.title('Test Accuracy over Epochs')
@@ -150,10 +150,10 @@ plt.legend()
 plt.savefig(f'./PA1/img/acc_norm_{args["dataset"]}_{args["model"]}_128.png', dpi = 600)
 plt.clf()
 
-plt.plot(none_256_conv, label='None 256')
-plt.plot(bn_256_conv, label='BN 256')
-plt.plot(ln_256_conv, label='LN 256')
-plt.plot(gn_256_conv, label='GN 256')
+plt.plot(none_256_conv, label='None 256', color='blue')
+plt.plot(bn_256_conv, label='BN 256', color='red')
+plt.plot(ln_256_conv, label='LN 256', color='orange')
+plt.plot(gn_256_conv, label='GN 256', color='green')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.title('Test Accuracy over Epochs')

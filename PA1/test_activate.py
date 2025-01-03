@@ -47,10 +47,10 @@ plt.savefig(f'./PA1/img/loss_activate_{args["dataset"]}_{args["model"]}.png', dp
 plt.clf()
 
 # Plot acc_log
-plt.plot(relu_conv, label='ReLU')
-plt.plot(gelu_acc, label='GELU')
-plt.plot(sigmoid_acc, label='Sigmod')
-plt.plot(tanh_acc, label='Tanh')
+plt.plot(relu_conv, label='ReLU', color='blue')
+plt.plot(gelu_acc, label='GELU', color='red')
+plt.plot(sigmoid_acc, label='Sigmod', color='orange')
+plt.plot(tanh_acc, label='Tanh', color='green')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.title('Test Accuracy over Epochs')

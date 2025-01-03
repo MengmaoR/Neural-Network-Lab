@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 args = train.args
 train.total_epoch = 30
-args['dataset'] = 'cifar10'
+args['dataset'] = 'cifar100'
 
 # Adam 优化器
 train.args = args
@@ -40,9 +40,9 @@ plt.savefig(f'./PA2/img/loss_opt_{args["dataset"]}_{args["model"]}.png', dpi = 6
 plt.clf()
 
 # Plot acc_log
-plt.plot(adam_conv, label='Adam')
-plt.plot(sgd_conv, label='SGD')
-plt.plot(adadelta_conv, label='Adadelta')
+plt.plot(adam_conv, label='Adam', color='blue')
+plt.plot(sgd_conv, label='SGD', color='red')
+plt.plot(adadelta_conv, label='Adadelta', color='orange')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.title('Test Accuracy over Epochs')

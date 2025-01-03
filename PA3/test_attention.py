@@ -47,10 +47,10 @@ plt.savefig(f'./PA3/img/loss_att_{args["dataset"]}_{args["model"]}.png', dpi = 6
 plt.clf()
 
 # Plot acc_log
-plt.plot(typical_conv, label='Typical')
-plt.plot(se_conv, label='SE')
-plt.plot(eca_conv, label='ECA')
-plt.plot(cbam_conv, label='CBAM')
+plt.plot(typical_conv, label='Typical', color='blue')
+plt.plot(se_conv, label='SE', color='red')
+plt.plot(eca_conv, label='ECA', color='orange')
+plt.plot(cbam_conv, label='CBAM', color='green')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.title('Test Accuracy over Epochs')
