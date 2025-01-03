@@ -86,13 +86,15 @@ class model(nn.Module):
             self.conv0 = nn.Conv2d(3, 6, 3)                     # 6x30x30
             self.conv1 = nn.Conv2d(6, args['kernel_num1'], 3)   # 6x28x28
         else:
-            self.conv1 = nn.Conv2d(3, args['kernel_num1'], args['kernel_size']) # 6x28x28
+            self.conv1 = nn.Conv2d(3, args['kernel_num1'], args['kernel_size']) # 12x28x28
 
         # normalization 1
         if self.normalization == 'bn':
             self.norm1 = nn.BatchNorm2d(args['kernel_num1'])
+        elif self.normalization == 'ln':
+            self.norm1 = nn.LayerNorm([args['kernel_num1'], 28, 28])
         elif self.normalization == 'gn':
-            self.norm1 = nn.GroupNorm(2, args['kernel_num1'])
+            self.norm1 = nn.GroupNorm(6, args['kernel_num1'])
         
         # attention 1
         if self.attention == 'se':
@@ -103,16 +105,18 @@ class model(nn.Module):
             self.att1 = CBAMBlock(args['kernel_num1'])
 
         # pooling 1
-        self.pool1 = nn.MaxPool2d(2, 2) # 6x14x14
+        self.pool1 = nn.MaxPool2d(2, 2) # 12x14x14
 
         # convolutional 2
-        self.conv2 = nn.Conv2d(args['kernel_num1'], args['kernel_num2'], args['kernel_size']) # 16x10x10
+        self.conv2 = nn.Conv2d(args['kernel_num1'], args['kernel_num2'], args['kernel_size']) # 32x10x10
 
         # normalization 2
         if self.normalization == 'bn':
             self.norm2 = nn.BatchNorm2d(args['kernel_num2'])
+        elif self.normalization == 'ln':
+            self.norm2 = nn.LayerNorm([args['kernel_num2'], 10, 10])
         elif self.normalization == 'gn':
-            self.norm2 = nn.GroupNorm(2, args['kernel_num2'])
+            self.norm2 = nn.GroupNorm(16, args['kernel_num2'])
         
         # attention 2
         if self.attention == 'se':
@@ -133,13 +137,6 @@ class model(nn.Module):
             self.conv3 = nn.Conv2d(args['kernel_num2'], 120, 5)
         elif self.kernel_size == 3:
             self.conv3 = nn.Conv2d(args['kernel_num2'], 120, 7)
-        
-        if self.normalization == 'bn':
-            self.norm3 = nn.BatchNorm1d(120)
-        elif self.normalization == 'ln':
-            self.norm3 = nn.LayerNorm(120)
-        elif self.normalization == 'gn':
-            self.norm3 = nn.GroupNorm(1, 120)
         
         # fully connected 1
         self.fc1 = nn.Linear(120,84)
