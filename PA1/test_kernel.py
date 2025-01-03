@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 args = train.args
 train.total_epoch = 30
-args['dataset'] = 'cifar100'
+args['dataset'] = 'cifar10'
 
 # 经典 LeNet-5, kernel_size 为 5, kernel_num1 为 12, kernel_num2 为 32
 train.args = args

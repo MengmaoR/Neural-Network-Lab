@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 args = train.args
 train.total_epoch = 30
-args['dataset'] = 'cifar100'
+args['dataset'] = 'cifar10'
 
 # 经典 LeNet-5，无归一化，batch_size = 64
 args['batch_size'] = 64

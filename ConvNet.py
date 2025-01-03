@@ -141,13 +141,6 @@ class model(nn.Module):
         # fully connected 1
         self.fc1 = nn.Linear(120,84)
 
-        if self.normalization == 'bn':
-            self.norm4 = nn.BatchNorm1d(84)
-        elif self.normalization == 'ln':
-            self.norm4 = nn.LayerNorm(84)
-        elif self.normalization == 'gn':
-            self.norm4 = nn.GroupNorm(1, 84)
-
         # dropout
         if self.dropout:
             self.dropout = nn.Dropout(0.5)
@@ -193,11 +186,7 @@ class model(nn.Module):
         out = self.pool2(out)
         out = self.conv3(out)
         out = out.view(in_size,-1)
-        if self.normalization != 'none':
-            out = self.norm3(out)
         out = self.fc1(out)
-        if self.normalization != 'none':
-            out = self.norm4(out)
         out = self.activation_layer(out)
         if self.dropout:
             out = self.dropout(out)

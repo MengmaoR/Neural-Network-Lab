@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 args = train.args
 train.total_epoch = 30
-args['dataset'] = 'cifar100'
+args['dataset'] = 'cifar10'
 
 # 经典 Lenet-5，无注意力机制
 train.args = args
