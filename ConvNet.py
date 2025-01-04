@@ -171,14 +171,14 @@ class model(nn.Module):
             out = self.conv1(out)
         else:
             out = self.conv1(x)
-        if self.normalization != 'none' and self.normalization != 'ln':
+        if self.normalization != 'none':
             out = self.norm1(out)
         out = self.activation_layer(out)
         if self.attention != 'none':
             out = self.att1(out)
         out = self.pool1(out)
         out = self.conv2(out)
-        if self.normalization != 'none' and self.normalization != 'ln':
+        if self.normalization != 'none':
             out = self.norm2(out)
         out = self.activation_layer(out)
         if self.attention != 'none':
