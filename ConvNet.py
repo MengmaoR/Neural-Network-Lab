@@ -21,7 +21,7 @@ class SEBlock(nn.Module):   # SE 注意力模块
         return x * y
 
 class ECABlock(nn.Module):  # ECA 注意力模块
-    def __init__(self, channels, kernel_size=3):
+    def __init__(self, channels, kernel_size=5):
         super(ECABlock, self).__init__()
         self.global_avg_pool = nn.AdaptiveAvgPool2d(1)
         self.conv1d = nn.Conv1d(1, 1, kernel_size=kernel_size, padding=(kernel_size - 1) // 2, bias=False)
@@ -35,7 +35,7 @@ class ECABlock(nn.Module):  # ECA 注意力模块
         return x * y
 
 class CBAMBlock(nn.Module): # CBAM 注意力模块
-    def __init__(self, channels, reduction=16, kernel_size=7):
+    def __init__(self, channels, reduction=16, kernel_size=5):
         super(CBAMBlock, self).__init__()
         # Channel Attention Module
         self.global_avg_pool = nn.AdaptiveAvgPool2d(1)
@@ -165,32 +165,46 @@ class model(nn.Module):
         
     def forward(self, x):
         in_size = x.size(0)
+
         if self.add_conv:
             out = self.conv0(x)
             out = self.activation_layer(out)
             out = self.conv1(out)
         else:
             out = self.conv1(x)
+
         if self.normalization != 'none':
             out = self.norm1(out)
+
         out = self.activation_layer(out)
+
         if self.attention != 'none':
             out = self.att1(out)
+
         out = self.pool1(out)
+
         out = self.conv2(out)
+
         if self.normalization != 'none':
             out = self.norm2(out)
+
         out = self.activation_layer(out)
+
         if self.attention != 'none':
             out = self.att2(out)
+
         out = self.pool2(out)
+
         out = self.conv3(out)
+
         out = out.view(in_size,-1)
         out = self.fc1(out)
+
         out = self.activation_layer(out)
+
         if self.dropout:
             out = self.dropout(out)
-        out = self.fc2(out)
 
+        out = self.fc2(out)
         out = F.log_softmax(out,dim=1)
         return out
