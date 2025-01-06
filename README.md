@@ -1,5 +1,16 @@
 # Neural-Network-Lab
 
+## 项目简介
+此项目为天津大学计算机科学与技术专业 2024 年秋季学期《神经网络与深度学习》课程的实验代码。
+实验主要涉及对卷积神经网络的复现，及对其中各个模块的分析，分别涵盖：
+- 作业一：网络架构、卷积核参数、激活函数、归一化方法的分析
+- 作业二：优化器的分析
+- 作业三：注意力机制的分析
+项目以 Lenet-5 模型为基础，使用 PyTorch 框架实现。
+
+by [MengmaoR](https://github.com/MengmaoR)
+项目已在 [GitHub](https://github.com/MengmaoR/Neural-Network-Lab) 上开源
+
 ## 环境配置
 ```shell
 pip install -r requirements.txt
